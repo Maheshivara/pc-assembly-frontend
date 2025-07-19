@@ -1,8 +1,37 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f9fafb;
+  --foreground: #333333;
+  --top-bar: #2F80ED
+  --surface: #ffffff;
+  --hover: #f3f4f6;
+  --border: #e5e7eb;
+
+  --text-primary: #333333;
+  --text-secondary: #6b7280;
+
+  --accent: #2f80ed;
+  --accent-hover: #2563eb;
+
+  --button-login: #2f80ed;
+  --button-login-hover: #2563eb;
+
+  --button-signup: #10b981;
+  --button-signup-hover: #059669;
+
+  --button-logout: #EF4444	;
+  --button-logout-hover: #DC2626;
+
+  --login-form-background: #F9FAFB;
+
+  --cpu: #1d4ed8;
+  --gpu: #10b981;
+  --ram: #8b5cf6;
+  --storage: #f59e0b;
+  --psu: #dc2626;
+  --motherboard: #475569;
+  --cooling: #0ea5e9;
 }
 
 @theme inline {
@@ -14,8 +43,37 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0f172a;
+    --foreground: #f9fafb;
+    --top-bar: #1E40AF;
+    --surface: #1e293b;
+    --hover: #1e293b;
+    --border: #334155;
+
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+
+    --accent: #60a5fa;
+    --accent-hover: #3b82f6;
+
+    --button-login: #3b82f6;
+    --button-login-hover: #2563eb;
+
+    --button-signup: #34d399;
+    --button-signup-hover: #059669;
+
+    --button-logout: #DC2626	;
+    --button-logout-hover: #B91C1C;
+
+    --login-form-background: #1E293B;
+
+    --cpu: #3b82f6;
+    --gpu: #34d399;
+    --ram: #a78bfa;
+    --storage: #fbbf24;
+    --psu: #f87171;
+    --motherboard: #64748b;
+    --cooling: #0ea5e9;
   }
 }
 
