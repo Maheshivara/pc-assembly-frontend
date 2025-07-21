@@ -49,7 +49,7 @@ export function LoginForm() {
       }}
     >
       <h2 style={{ textAlign: "center", margin: 0, fontWeight: "bold" }}>
-        Sign In
+        Entrar
       </h2>
       <label>
         Email
@@ -112,7 +112,7 @@ export function LoginForm() {
           e.currentTarget.style.background = "var(--button-login)";
         }}
       >
-        Sign In
+        Entrar
       </button>
     </form>
   );

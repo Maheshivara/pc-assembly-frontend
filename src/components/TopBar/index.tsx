@@ -107,7 +107,7 @@ export function TopBar({
               }
               onClick={() => (window.location.href = "/login")}
             >
-              Sign In
+              Entrar
             </button>
           )}
           {showSignupButton && (
@@ -129,8 +129,9 @@ export function TopBar({
               onMouseOut={(e) =>
                 (e.currentTarget.style.backgroundColor = "var(--button-signup)")
               }
+              onClick={() => (window.location.href = "/signup")}
             >
-              Sign Up
+              Cadastrar-se
             </button>
           )}
         </div>
