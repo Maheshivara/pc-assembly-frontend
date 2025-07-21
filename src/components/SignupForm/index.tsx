@@ -53,102 +53,51 @@ export function SignupForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      style={{
-        maxWidth: 350,
-        margin: "2rem auto",
-        padding: "2rem",
-        borderRadius: 8,
-        boxShadow: "0 2px 12px rgba(0,0,0,0.1)",
-        background: "var(--login-form-background)",
-        display: "flex",
-        flexDirection: "column",
-        gap: "1.2rem",
-      }}
+      className="max-w-[350px] mx-auto mt-8 p-8 rounded-lg shadow-lg bg-[var(--form-background)] flex flex-col gap-5"
     >
-      <h2 style={{ textAlign: "center", margin: 0, fontWeight: "bold" }}>
-        Cadastro
-      </h2>
-      <label>
+      <h2 className="text-center m-0 font-bold">Cadastro</h2>
+      <label className="flex flex-col gap-1">
         Email
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          style={{
-            width: "100%",
-            padding: "0.5rem",
-            marginTop: "0.3rem",
-            borderRadius: 4,
-            border: "1px solid #ccc",
-          }}
+          className="w-full p-2 mt-1 rounded border border-gray-300"
         />
         {errors.email && (
-          <span style={{ color: "red", fontSize: "0.9rem" }}>
-            {errors.email}
-          </span>
+          <span className="text-red-600 text-sm">{errors.email}</span>
         )}
       </label>
-      <label>
+      <label className="flex flex-col gap-1">
         Senha
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          style={{
-            width: "100%",
-            padding: "0.5rem",
-            marginTop: "0.3rem",
-            borderRadius: 4,
-            border: "1px solid #ccc",
-          }}
+          className="w-full p-2 mt-1 rounded border border-gray-300"
         />
         {errors.password && (
-          <span style={{ color: "red", fontSize: "0.9rem" }}>
-            {errors.password}
-          </span>
+          <span className="text-red-600 text-sm">{errors.password}</span>
         )}
       </label>
-      <label>
+      <label className="flex flex-col gap-1">
         Confirmar Senha
         <input
           type="password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
-          style={{
-            width: "100%",
-            padding: "0.5rem",
-            marginTop: "0.3rem",
-            borderRadius: 4,
-            border: "1px solid #ccc",
-          }}
+          className="w-full p-2 mt-1 rounded border border-gray-300"
         />
         {errors.confirmPassword && (
-          <span style={{ color: "red", fontSize: "0.9rem" }}>
-            {errors.confirmPassword}
-          </span>
+          <span className="text-red-600 text-sm">{errors.confirmPassword}</span>
         )}
       </label>
       <button
         type="submit"
-        style={{
-          padding: "0.7rem",
-          borderRadius: 4,
-          border: "none",
-          background: "var(--button-signup)",
-          color: "#fff",
-          fontWeight: "bold",
-          cursor: "pointer",
-          marginTop: "1rem",
-        }}
-        onMouseOver={(e) => {
-          e.currentTarget.style.background = "var(--button-signup-hover)";
-        }}
-        onMouseOut={(e) => {
-          e.currentTarget.style.background = "var(--button-signup)";
-        }}
+        className="p-3 rounded border-none bg-[var(--button-signup)] text-white font-bold cursor-pointer mt-4 transition-colors hover:bg-[var(--button-signup-hover)]"
       >
         Cadastrar
       </button>
