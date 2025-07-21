@@ -14,65 +14,21 @@ export function TopBar({
   showSignupButton = true,
 }: TopBarProps) {
   return (
-    <div
-      style={{
-        width: "100%",
-        height: "80px",
-        backgroundColor: "var(--top-bar)",
-        display: "flex",
-        alignItems: "center",
-        padding: "0 24px",
-        boxSizing: "border-box",
-        fontWeight: "bold",
-        fontSize: "1.2rem",
-      }}
-    >
-      <Link
-        href="/"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          textDecoration: "none",
-        }}
-      >
-        <div
-          style={{
-            backgroundColor: "white",
-            borderRadius: "10%",
-            padding: "1px",
-          }}
-        >
+    <div className="w-full h-20 bg-[var(--top-bar)] flex items-center px-6 box-border font-bold text-[1.2rem]">
+      <Link href="/" className="flex items-center no-underline">
+        <div className="bg-white rounded-[10%] p-[1px]">
           <Image src="/logo.svg" alt="Logo" width={60} height={60} />
         </div>
-        <div
-          style={{
-            color: "white",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            height: "100%",
-            marginLeft: "10px",
-          }}
-        >
+        <div className="text-white flex flex-col justify-center h-full ml-2.5">
           <div>PC</div>
           <div>Assembly</div>
         </div>
       </Link>
       {username ? (
-        <div style={{ marginLeft: "auto", color: "white" }}>
+        <div className="ml-auto text-white flex items-center">
           <span>Bem-vindo, {username}!</span>
           <button
-            style={{
-              backgroundColor: "var(--button-logout)",
-              color: "white",
-              border: "none",
-              borderRadius: "6px",
-              padding: "8px 20px",
-              fontWeight: "bold",
-              cursor: "pointer",
-              transition: "background 0.2s",
-              marginLeft: "12px",
-            }}
+            className="bg-[var(--button-logout)] text-white border-none rounded-md px-5 py-2 font-bold cursor-pointer transition-colors ml-3"
             onMouseOver={(e) =>
               (e.currentTarget.style.backgroundColor =
                 "var(--button-logout-hover)")
@@ -85,19 +41,10 @@ export function TopBar({
           </button>
         </div>
       ) : (
-        <div style={{ marginLeft: "auto", display: "flex", gap: "12px" }}>
+        <div className="ml-auto flex gap-3">
           {showLoginButton && (
             <button
-              style={{
-                backgroundColor: "var(--button-login)",
-                color: "white",
-                border: "none",
-                borderRadius: "6px",
-                padding: "8px 20px",
-                fontWeight: "bold",
-                cursor: "pointer",
-                transition: "background 0.2s",
-              }}
+              className="bg-[var(--button-login)] text-white border-none rounded-md px-5 py-2 font-bold cursor-pointer transition-colors"
               onMouseOver={(e) =>
                 (e.currentTarget.style.backgroundColor =
                   "var(--button-login-hover)")
@@ -112,16 +59,7 @@ export function TopBar({
           )}
           {showSignupButton && (
             <button
-              style={{
-                backgroundColor: "var(--button-signup)",
-                color: "white",
-                border: "none",
-                borderRadius: "6px",
-                padding: "8px 20px",
-                fontWeight: "bold",
-                cursor: "pointer",
-                transition: "background 0.2s",
-              }}
+              className="bg-[var(--button-signup)] text-white border-none rounded-md px-5 py-2 font-bold cursor-pointer transition-colors"
               onMouseOver={(e) =>
                 (e.currentTarget.style.backgroundColor =
                   "var(--button-signup-hover)")
