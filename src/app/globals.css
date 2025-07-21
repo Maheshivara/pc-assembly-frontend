@@ -3,7 +3,7 @@
 :root {
   --background: #f9fafb;
   --foreground: #333333;
-  --top-bar: #2F80ED
+  --top-bar: #2f80ed;
   --surface: #ffffff;
   --hover: #f3f4f6;
   --border: #e5e7eb;
@@ -20,10 +20,16 @@
   --button-signup: #10b981;
   --button-signup-hover: #059669;
 
-  --button-logout: #EF4444	;
-  --button-logout-hover: #DC2626;
+  --button-logout: #ef4444;
+  --button-logout-hover: #dc2626;
 
-  --login-form-background: #F9FAFB;
+  --button-next: #2f80ed;
+  --button-next-hover: #2563eb;
+
+  --button-back: #e5e7eb;
+  --button-back-hover: #d1d5db;
+
+  --form-background: #f9fafb;
 
   --cpu: #1d4ed8;
   --gpu: #10b981;
@@ -45,7 +51,7 @@
   :root {
     --background: #0f172a;
     --foreground: #f9fafb;
-    --top-bar: #1E40AF;
+    --top-bar: #1e40af;
     --surface: #1e293b;
     --hover: #1e293b;
     --border: #334155;
@@ -62,10 +68,16 @@
     --button-signup: #34d399;
     --button-signup-hover: #059669;
 
-    --button-logout: #DC2626	;
-    --button-logout-hover: #B91C1C;
+    --button-logout: #dc2626;
+    --button-logout-hover: #b91c1c;
 
-    --login-form-background: #1E293B;
+    --button-next: #3b82f6;
+    --button-next-hover: #2563eb;
+
+    --button-back: #334155;
+    --button-back-hover: #475569;
+
+    --form-background: #1e293b;
 
     --cpu: #3b82f6;
     --gpu: #34d399;
