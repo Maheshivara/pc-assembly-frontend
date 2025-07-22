@@ -5,6 +5,7 @@ import "./globals.css";
 import { TopBar } from "@/components/TopBar";
 import { cookies } from "next/headers";
 import { useUser } from "@/hooks/user";
+import { QueryProvider } from "@/components/QueryProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,7 +36,7 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <TopBar username={user?.username} />
-        {children}
+        <QueryProvider>{children}</QueryProvider>
         <ToastContainer />
       </body>
     </html>
