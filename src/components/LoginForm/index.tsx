@@ -1,4 +1,5 @@
 "use client";
+import { useAuth } from "@/hooks/auth";
 import React, { useState } from "react";
 import { z } from "zod";
 
@@ -6,7 +7,7 @@ const loginSchema = z.object({
   email: z.email({ message: "Email Inválido" }),
   password: z
     .string()
-    .min(6, { message: "A senha deve ter pelo menos 6 caracteres" }),
+    .min(8, { message: "A senha deve ter pelo menos 8 caracteres" }),
 });
 
 export function LoginForm() {
@@ -16,7 +17,7 @@ export function LoginForm() {
     {}
   );
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const result = loginSchema.safeParse({ email, password });
     if (!result.success) {
@@ -29,8 +30,7 @@ export function LoginForm() {
       return;
     }
     setErrors({});
-
-    alert(`Email: ${email}\nPassword: ${password}`);
+    await useAuth.Login(email, password);
   };
 
   return (
