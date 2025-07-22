@@ -1,4 +1,5 @@
 "use client";
+import { useAuth } from "@/hooks/auth";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -29,6 +30,10 @@ export function TopBar({
           <span>Bem-vindo, {username}!</span>
           <button
             className="bg-[var(--button-logout)] text-white border-none rounded-md px-5 py-2 font-bold cursor-pointer transition-colors ml-3"
+            onClick={() => {
+              useAuth.Logout();
+              window.location.href = "/";
+            }}
             onMouseOver={(e) =>
               (e.currentTarget.style.backgroundColor =
                 "var(--button-logout-hover)")

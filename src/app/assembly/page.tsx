@@ -1,10 +1,8 @@
 import { AssemblyWizard } from "@/components/AssemblyWizard";
-import { TopBar } from "@/components/TopBar";
 
-export default function LoginPage() {
+export default function AssemblyPage() {
   return (
     <div>
-      <TopBar />
       <div>
         <AssemblyWizard />
       </div>
