@@ -38,6 +38,7 @@
   --psu: #dc2626;
   --motherboard: #475569;
   --cooling: #0ea5e9;
+  --end: #b2daf5ff;
 }
 
 @theme inline {
@@ -86,6 +87,7 @@
     --psu: #f87171;
     --motherboard: #64748b;
     --cooling: #0ea5e9;
+    --end: #1e293b;
   }
 }
 

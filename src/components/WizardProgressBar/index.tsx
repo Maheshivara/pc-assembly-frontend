@@ -12,6 +12,7 @@ export enum WizardStep {
   PSU = 5,
   RAM = 6,
   STORAGE = 7,
+  END = 8,
 }
 
 export function WizardProgressBar({ currentStep }: WizardProgressBarProps) {
@@ -21,12 +22,17 @@ export function WizardProgressBar({ currentStep }: WizardProgressBarProps) {
     { key: WizardStep.GPU, label: "GPU", color: "var(--gpu)" },
     {
       key: WizardStep.MOTHERBOARD,
-      label: "Motherboard",
+      label: "Placa Mãe",
       color: "var(--motherboard)",
     },
-    { key: WizardStep.PSU, label: "PSU", color: "var(--psu)" },
+    { key: WizardStep.PSU, label: "Fonte", color: "var(--psu)" },
     { key: WizardStep.RAM, label: "RAM", color: "var(--ram)" },
-    { key: WizardStep.STORAGE, label: "Storage", color: "var(--storage)" },
+    {
+      key: WizardStep.STORAGE,
+      label: "Armazenamento",
+      color: "var(--storage)",
+    },
+    { key: WizardStep.END, label: "Fim", color: "var(--end)" },
   ];
 
   return (

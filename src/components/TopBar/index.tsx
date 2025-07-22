@@ -18,7 +18,13 @@ export function TopBar({
     <div className="w-full h-20 bg-[var(--top-bar)] flex items-center px-6 box-border font-bold text-[1.2rem]">
       <Link href="/" className="flex items-center no-underline">
         <div className="bg-white rounded-[10%] p-[1px]">
-          <Image src="/logo.svg" alt="Logo" width={60} height={60} />
+          <Image
+            src="/logo.svg"
+            alt="Logo"
+            width={60}
+            height={60}
+            priority={true}
+          />
         </div>
         <div className="text-white flex flex-col justify-center h-full ml-2.5">
           <div>PC</div>
