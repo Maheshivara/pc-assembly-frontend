@@ -52,6 +52,14 @@ export function ComponentsList({
         backgroundColor: "var(--surface)",
       }}
     >
+      {components.length === 0 && (
+        <li
+          className="text-center text-sm p-4"
+          style={{ color: "var(--text-secondary)" }}
+        >
+          Nenhum componente encontrado.
+        </li>
+      )}
       {components.map((component) => (
         <li
           key={component.ean || component.mpn}
