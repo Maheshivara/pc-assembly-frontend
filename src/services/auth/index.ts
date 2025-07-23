@@ -9,6 +9,7 @@ export async function login(email: string, password: string) {
   try {
     console.log("Attempting to log in with email:", email);
     const response = await userApi.post<
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       any,
       AxiosResponse<TokensResponse, AuthErrorResponse>
     >("auth/login", { email, password });
@@ -20,6 +21,7 @@ export async function login(email: string, password: string) {
     }
     toast.success("Login realizado com sucesso.");
     window.location.href = "/";
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (isAxiosError(error)) {
       const axiosError = error as AxiosError<AuthErrorResponse>;
@@ -55,6 +57,7 @@ export async function register(
 ) {
   try {
     const response = await userApi.post<
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       any,
       AxiosResponse<TokensResponse, AuthErrorResponse>
     >("auth/register", { username, email, password });
@@ -67,6 +70,7 @@ export async function register(
 
     toast.success("Usuário registrado com sucesso.");
     window.location.href = "/";
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (isAxiosError(error)) {
       const axiosError = error as AxiosError<AuthErrorResponse>;
@@ -94,6 +98,7 @@ export async function register(
 export async function refreshTokens(refreshToken: string) {
   try {
     const response = await userApi.post<
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       any,
       AxiosResponse<TokensResponse, AuthErrorResponse>
     >("auth/refresh", {
@@ -105,6 +110,7 @@ export async function refreshTokens(refreshToken: string) {
       toast.error("Erro ao atualizar os tokens.");
       return;
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (isAxiosError(error)) {
       const axiosError = error as AxiosError<AuthErrorResponse>;
