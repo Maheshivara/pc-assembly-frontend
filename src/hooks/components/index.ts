@@ -1,5 +1,6 @@
 import { getCoolerByMpn, listCoolers } from "@/services/components/cooler";
 import { getCPUByMpn, listCPUs } from "@/services/components/cpu";
+import { getGPUByMpn, listGPUs } from "@/services/components/gpu";
 import { useQuery } from "@tanstack/react-query";
 
 const queryKeys = {
@@ -53,4 +54,23 @@ const GetOneCooler = (mpn: string) => {
 export const useCoolers = {
   GetManyCoolers,
   GetOneCooler,
+};
+
+const GetManyGPUs = (page: number, perPage: number, name: string) => {
+  return useQuery({
+    queryKey: [queryKeys.gpus, page, perPage, name],
+    queryFn: () => listGPUs(page, perPage, name),
+  });
+};
+
+const GetOneGPU = (mpn: string) => {
+  return useQuery({
+    queryKey: [queryKeys.gpus, "mpn", mpn],
+    queryFn: () => getGPUByMpn(mpn),
+  });
+};
+
+export const useGPUs = {
+  GetManyGPUs,
+  GetOneGPU,
 };
