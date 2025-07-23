@@ -86,3 +86,17 @@ export type MotherboardComponentResponse = {
   imageUrl?: string;
   productUrl?: string;
 };
+
+export type PSUComponentResponse = {
+  mpn: string;
+  name?: string;
+  ean?: string;
+  brand?: string;
+  power?: number;
+  efficiency?: string;
+  type?: string;
+  eightPin?: number;
+  sixPin?: number;
+  imageUrl?: string;
+  productUrl?: string;
+};

@@ -29,7 +29,7 @@ export async function listCPUs(
 export async function getCPUByMpn(mpn: string) {
   try {
     const response = await componentsApi.get<CPUComponentResponse>(
-      `/cpu/${mpn}`
+      `cpu/${mpn}`
     );
     return response.data;
   } catch (error) {

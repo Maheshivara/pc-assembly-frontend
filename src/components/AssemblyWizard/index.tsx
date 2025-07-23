@@ -6,13 +6,13 @@ import { Configuration } from "@/types/domain/configuration";
 import { CoolerChooser } from "../CoolerChooser";
 import { GPUChooser } from "../GPUChooser";
 import { MoBoChooser } from "../MoBoChooser";
+import { PSUChooser } from "../PSUChooser";
 
 export function AssemblyWizard() {
   const [currentStep, setCurrentStep] = useState<WizardStep>(WizardStep.CPU);
   const [canGoNext, setCanGoNext] = useState<boolean>(false);
   const [config, setConfig] = useState<Configuration | null>(null);
   const nextStep = (step: WizardStep) => {
-    console.log("Next step:", step);
     if (step < WizardStep.END && canGoNext) {
       setCurrentStep(step + 1);
       setChooser(
@@ -119,6 +119,14 @@ function handleChooserChange(
     case WizardStep.MOTHERBOARD:
       return (
         <MoBoChooser
+          setCanGoNext={setCanGoNext}
+          config={config}
+          setConfig={setConfig}
+        />
+      );
+    case WizardStep.PSU:
+      return (
+        <PSUChooser
           setCanGoNext={setCanGoNext}
           config={config}
           setConfig={setConfig}
