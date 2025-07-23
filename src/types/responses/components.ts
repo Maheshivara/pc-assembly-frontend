@@ -31,3 +31,21 @@ export type CoolerComponentResponse = {
   imageUrl?: string;
   productUrl?: string;
 };
+
+export type GPUComponentResponse = {
+  mpn: string;
+  name?: string;
+  ean?: string;
+  brand?: string;
+  dp?: number;
+  hdmi?: number;
+  dvi?: number;
+  vga?: number;
+  vram?: number;
+  boostClockSpeed?: number;
+  memoryClockSpeed?: number;
+  tdp?: number;
+  sync?: string;
+  imageUrl?: string;
+  productUrl?: string;
+};

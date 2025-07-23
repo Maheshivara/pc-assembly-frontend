@@ -4,12 +4,14 @@ import { WizardProgressBar, WizardStep } from "../WizardProgressBar";
 import { CPUChooser } from "../CPUChooser";
 import { Configuration } from "@/types/domain/configuration";
 import { CoolerChooser } from "../CoolerChooser";
+import { GPUChooser } from "../GPUChooser";
 
 export function AssemblyWizard() {
   const [currentStep, setCurrentStep] = useState<WizardStep>(WizardStep.CPU);
   const [canGoNext, setCanGoNext] = useState<boolean>(false);
   const [config, setConfig] = useState<Configuration | null>(null);
   const nextStep = (step: WizardStep) => {
+    console.log("Next step:", step);
     if (step < WizardStep.END && canGoNext) {
       setCurrentStep(step + 1);
       setChooser(
@@ -95,6 +97,14 @@ function handleChooserChange(
     case WizardStep.CPU_FAN:
       return (
         <CoolerChooser
+          setCanGoNext={setCanGoNext}
+          config={config}
+          setConfig={setConfig}
+        />
+      );
+    case WizardStep.GPU:
+      return (
+        <GPUChooser
           setCanGoNext={setCanGoNext}
           config={config}
           setConfig={setConfig}
