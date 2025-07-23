@@ -29,7 +29,7 @@ export async function listGPUs(
 export async function getGPUByMpn(mpn: string) {
   try {
     const response = await componentsApi.get<GPUComponentResponse>(
-      `/gpu/${mpn}`
+      `gpu/${mpn}`
     );
     return response.data;
   } catch (error) {

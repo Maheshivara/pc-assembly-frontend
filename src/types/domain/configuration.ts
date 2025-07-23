@@ -3,6 +3,7 @@ import {
   CoolerComponentResponse,
   GPUComponentResponse,
   MotherboardComponentResponse,
+  PSUComponentResponse,
 } from "../responses/components";
 
 export type Configuration = {
@@ -10,4 +11,5 @@ export type Configuration = {
   cooler?: CoolerComponentResponse;
   gpu?: GPUComponentResponse;
   motherboard?: MotherboardComponentResponse;
+  psu?: PSUComponentResponse;
 };

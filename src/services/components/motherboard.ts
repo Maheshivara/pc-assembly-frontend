@@ -32,7 +32,7 @@ export async function listMotherboards(
 export async function getMotherboardByMpn(mpn: string) {
   try {
     const response = await componentsApi.get<MotherboardComponentResponse>(
-      `/motherboard/${mpn}`
+      `motherboard/${mpn}`
     );
     return response.data;
   } catch (error) {

@@ -29,7 +29,8 @@ export function GPUChooser({
     if (config?.gpu || config?.cpu?.graphics !== "none") {
       setCanGoNext(true);
     }
-  }, [config?.gpu, setCanGoNext]);
+  }, [config?.gpu, setCanGoNext, config?.cpu?.graphics]);
+
   const onSearch = (query: string) => {
     if (query.trim().length < 3) {
       query = "";

@@ -32,7 +32,7 @@ export async function listCoolers(
 export async function getCoolerByMpn(mpn: string) {
   try {
     const response = await componentsApi.get<CPUComponentResponse>(
-      `/cooler/${mpn}`
+      `cooler/${mpn}`
     );
     return response.data;
   } catch (error) {

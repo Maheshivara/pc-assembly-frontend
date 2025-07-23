@@ -5,6 +5,7 @@ import {
   getMotherboardByMpn,
   listMotherboards,
 } from "@/services/components/motherboard";
+import { getPSUByMpn, listPSUs } from "@/services/components/psu";
 import { useQuery } from "@tanstack/react-query";
 
 const queryKeys = {
@@ -101,4 +102,30 @@ const GetOneMotherboard = (mpn: string) => {
 export const useMotherboards = {
   GetManyMotherboards,
   GetOneMotherboard,
+};
+
+const GetManyPSUs = (
+  page: number,
+  perPage: number,
+  power: number,
+  type: string,
+  name: string = "",
+  getUncertain: boolean = false
+) => {
+  return useQuery({
+    queryKey: [queryKeys.psus, page, perPage, power, type, name, getUncertain],
+    queryFn: () => listPSUs(page, perPage, power, type, name, getUncertain),
+  });
+};
+
+const GetOnePSU = (mpn: string) => {
+  return useQuery({
+    queryKey: [queryKeys.psus, "mpn", mpn],
+    queryFn: () => getPSUByMpn(mpn),
+  });
+};
+
+export const usePSUs = {
+  GetManyPSUs,
+  GetOnePSU,
 };
