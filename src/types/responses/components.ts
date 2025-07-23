@@ -100,3 +100,16 @@ export type PSUComponentResponse = {
   imageUrl?: string;
   productUrl?: string;
 };
+
+export type RAMComponentResponse = {
+  mpn: string;
+  name?: string;
+  ean?: string;
+  brand?: string;
+  type?: string;
+  capacity?: number;
+  clockSpeed?: number;
+  timings?: string;
+  imageUrl?: string;
+  productUrl?: string;
+};

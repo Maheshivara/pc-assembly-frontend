@@ -1,5 +1,5 @@
 import { CPUComponentResponse } from "@/types/responses/components";
-import React from "react";
+
 import { ImageWithFallback } from "../ImageWithFallback";
 
 type CPUInfoPanelProps = {

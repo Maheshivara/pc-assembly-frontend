@@ -7,6 +7,7 @@ import { CoolerChooser } from "../CoolerChooser";
 import { GPUChooser } from "../GPUChooser";
 import { MoBoChooser } from "../MoBoChooser";
 import { PSUChooser } from "../PSUChooser";
+import { RAMChooser } from "../RAMChooser";
 
 export function AssemblyWizard() {
   const [currentStep, setCurrentStep] = useState<WizardStep>(WizardStep.CPU);
@@ -37,7 +38,7 @@ export function AssemblyWizard() {
     />
   );
   return (
-    <div className="max-w-[1000px] mx-auto">
+    <div className="max-w-[1100px] mx-auto">
       <WizardProgressBar currentStep={currentStep} />
       <div className="rounded-lg shadow-md">{chooser}</div>
       <div className="flex justify-end mt-3 gap-4 mb-4">
@@ -127,6 +128,14 @@ function handleChooserChange(
     case WizardStep.PSU:
       return (
         <PSUChooser
+          setCanGoNext={setCanGoNext}
+          config={config}
+          setConfig={setConfig}
+        />
+      );
+    case WizardStep.RAM:
+      return (
+        <RAMChooser
           setCanGoNext={setCanGoNext}
           config={config}
           setConfig={setConfig}

@@ -52,17 +52,9 @@ export function ComponentsList({
         backgroundColor: "var(--surface)",
       }}
     >
-      {components.length === 0 && (
+      {components.map((component, idx) => (
         <li
-          className="text-center text-sm p-4"
-          style={{ color: "var(--text-secondary)" }}
-        >
-          Nenhum componente encontrado.
-        </li>
-      )}
-      {components.map((component) => (
-        <li
-          key={component.ean || component.mpn}
+          key={`${component.ean || component.mpn}_idx-${idx}`}
           className="list-none gap-1 mb-2 cursor-pointer"
           style={{ height: "60px" }}
           onClick={() => onSelect(component)}

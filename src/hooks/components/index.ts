@@ -6,6 +6,7 @@ import {
   listMotherboards,
 } from "@/services/components/motherboard";
 import { getPSUByMpn, listPSUs } from "@/services/components/psu";
+import { getRAMByMpn, listRAMs } from "@/services/components/ram";
 import { useQuery } from "@tanstack/react-query";
 
 const queryKeys = {
@@ -128,4 +129,28 @@ const GetOnePSU = (mpn: string) => {
 export const usePSUs = {
   GetManyPSUs,
   GetOnePSU,
+};
+
+const GetManyRAMs = (
+  page: number,
+  perPage: number,
+  motherboardMpn: string,
+  name: string = ""
+) => {
+  return useQuery({
+    queryKey: [queryKeys.rams, page, perPage, motherboardMpn, name],
+    queryFn: () => listRAMs(page, perPage, motherboardMpn, name),
+  });
+};
+
+const GetOneRAM = (mpn: string) => {
+  return useQuery({
+    queryKey: [queryKeys.rams, "mpn", mpn],
+    queryFn: () => getRAMByMpn(mpn),
+  });
+};
+
+export const useRAMs = {
+  GetManyRAMs,
+  GetOneRAM,
 };

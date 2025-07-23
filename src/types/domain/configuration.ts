@@ -4,6 +4,7 @@ import {
   GPUComponentResponse,
   MotherboardComponentResponse,
   PSUComponentResponse,
+  RAMComponentResponse,
 } from "../responses/components";
 
 export type Configuration = {
@@ -12,4 +13,10 @@ export type Configuration = {
   gpu?: GPUComponentResponse;
   motherboard?: MotherboardComponentResponse;
   psu?: PSUComponentResponse;
+  ram?: SelectedRAM[];
+};
+
+export type SelectedRAM = {
+  ram: RAMComponentResponse;
+  quantity: number;
 };
