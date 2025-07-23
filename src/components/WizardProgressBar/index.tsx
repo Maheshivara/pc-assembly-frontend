@@ -36,7 +36,7 @@ export function WizardProgressBar({ currentStep }: WizardProgressBarProps) {
   ];
 
   return (
-    <div className="w-full my-18">
+    <div className="w-full mt-18 mb-2">
       <div className="flex justify-center relative mb-8">
         {steps.map((step) => (
           <div key={step.key} className="relative flex-1 text-center">

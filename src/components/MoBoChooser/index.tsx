@@ -1,35 +1,41 @@
-import { useGPUs } from "@/hooks/components";
+import { useMotherboards } from "@/hooks/components";
 import { ComponentsList } from "../ComponentsList";
 import { useEffect, useState } from "react";
-import { GPUComponentResponse } from "@/types/responses/components";
+import { MotherboardComponentResponse } from "@/types/responses/components";
 import { SearchBar } from "../SearchBar";
-import { GPUInfoPanel } from "../GPUInfoPanel";
 import { Configuration } from "@/types/domain/configuration";
+import { MoBoInfoPanel } from "../MoBoInfoPanel";
 
-export interface GPUChooserProps {
+export interface MoBoChooserProps {
   setCanGoNext: (value: boolean) => void;
   config: Configuration | null;
   setConfig: (config: Configuration) => void;
 }
 
-export function GPUChooser({
+export function MoBoChooser({
   setCanGoNext,
   setConfig,
   config,
-}: GPUChooserProps) {
+}: MoBoChooserProps) {
   const [page, setPage] = useState(1);
   const [name, setName] = useState("");
   const perPage = 10;
-  const { data: pageComponents } = useGPUs.GetManyGPUs(page, perPage, name);
-  const [components, setComponents] = useState<GPUComponentResponse[]>([]);
-  const [selectedGpu, setSelectedGpu] = useState<GPUComponentResponse | null>(
-    config?.gpu || null
+  const { data: pageComponents } = useMotherboards.GetManyMotherboards(
+    page,
+    perPage,
+    config?.cpu?.mpn || "",
+    name
   );
+  const [components, setComponents] = useState<MotherboardComponentResponse[]>(
+    []
+  );
+  const [selectedMoBo, setSelectedMoBo] =
+    useState<MotherboardComponentResponse | null>(config?.motherboard || null);
   useEffect(() => {
-    if (config?.gpu || config?.cpu?.graphics !== "none") {
+    if (config?.motherboard) {
       setCanGoNext(true);
     }
-  }, [config?.gpu, setCanGoNext]);
+  }, [config?.motherboard, setCanGoNext]);
   const onSearch = (query: string) => {
     if (query.trim().length < 3) {
       query = "";
@@ -38,14 +44,16 @@ export function GPUChooser({
     setPage(1);
     setComponents([]);
   };
-  const onSelect = (component: GPUComponentResponse) => {
+
+  const onSelect = (component: MotherboardComponentResponse) => {
     setConfig({
       ...config,
-      gpu: component,
+      motherboard: component,
     });
-    setSelectedGpu(component);
+    setSelectedMoBo(component);
     setCanGoNext(true);
   };
+
   useEffect(() => {
     if (pageComponents) {
       setComponents((prev) =>
@@ -80,7 +88,7 @@ export function GPUChooser({
           alignItems: "center",
         }}
       >
-        {selectedGpu && <GPUInfoPanel gpu={selectedGpu} />}
+        {selectedMoBo && <MoBoInfoPanel motherboard={selectedMoBo} />}
       </div>
     </div>
   );

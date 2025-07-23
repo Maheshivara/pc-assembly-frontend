@@ -1,6 +1,10 @@
 import { getCoolerByMpn, listCoolers } from "@/services/components/cooler";
 import { getCPUByMpn, listCPUs } from "@/services/components/cpu";
 import { getGPUByMpn, listGPUs } from "@/services/components/gpu";
+import {
+  getMotherboardByMpn,
+  listMotherboards,
+} from "@/services/components/motherboard";
 import { useQuery } from "@tanstack/react-query";
 
 const queryKeys = {
@@ -73,4 +77,28 @@ const GetOneGPU = (mpn: string) => {
 export const useGPUs = {
   GetManyGPUs,
   GetOneGPU,
+};
+
+const GetManyMotherboards = (
+  page: number,
+  perPage: number,
+  cpuMpn: string,
+  name: string = ""
+) => {
+  return useQuery({
+    queryKey: [queryKeys.motherboards, page, perPage, cpuMpn, name],
+    queryFn: () => listMotherboards(page, perPage, cpuMpn, name),
+  });
+};
+
+const GetOneMotherboard = (mpn: string) => {
+  return useQuery({
+    queryKey: [queryKeys.motherboards, "mpn", mpn],
+    queryFn: () => getMotherboardByMpn(mpn),
+  });
+};
+
+export const useMotherboards = {
+  GetManyMotherboards,
+  GetOneMotherboard,
 };
