@@ -5,6 +5,7 @@ import { CPUChooser } from "../CPUChooser";
 import { Configuration } from "@/types/domain/configuration";
 import { CoolerChooser } from "../CoolerChooser";
 import { GPUChooser } from "../GPUChooser";
+import { MoBoChooser } from "../MoBoChooser";
 
 export function AssemblyWizard() {
   const [currentStep, setCurrentStep] = useState<WizardStep>(WizardStep.CPU);
@@ -38,42 +39,47 @@ export function AssemblyWizard() {
   return (
     <div className="max-w-[1000px] mx-auto">
       <WizardProgressBar currentStep={currentStep} />
-      <div className="p-4 rounded-lg shadow-md">{chooser}</div>
-      <div className="flex justify-end mt-8 gap-4 mb-4">
-        <button
-          onClick={() => prevStep(currentStep)}
-          disabled={currentStep === WizardStep.CPU}
-          onMouseOver={(e) => {
-            e.currentTarget.style.backgroundColor = "var(--button-back-hover)";
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.backgroundColor = "var(--button-back)";
-          }}
-          className="px-4 py-2 rounded"
-          style={{
-            backgroundColor: "var(--button-back)",
-            color: "white",
-          }}
-        >
-          Voltar
-        </button>
-        <button
-          onClick={() => nextStep(currentStep)}
-          onMouseOver={(e) => {
-            e.currentTarget.style.backgroundColor = "var(--button-next-hover)";
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.backgroundColor = "var(--button-next)";
-          }}
-          disabled={currentStep === WizardStep.END || !setCanGoNext}
-          className="px-4 py-2  rounded"
-          style={{
-            backgroundColor: "var(--button-next)",
-            color: "white",
-          }}
-        >
-          Avançar
-        </button>
+      <div className="rounded-lg shadow-md">{chooser}</div>
+      <div className="flex justify-end mt-3 gap-4 mb-4">
+        {currentStep !== WizardStep.CPU && (
+          <button
+            onClick={() => prevStep(currentStep)}
+            onMouseOver={(e) => {
+              e.currentTarget.style.backgroundColor =
+                "var(--button-back-hover)";
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.backgroundColor = "var(--button-back)";
+            }}
+            className="px-4 py-2 rounded"
+            style={{
+              backgroundColor: "var(--button-back)",
+              color: "white",
+            }}
+          >
+            Voltar
+          </button>
+        )}
+        {currentStep !== WizardStep.END && (
+          <button
+            onClick={() => nextStep(currentStep)}
+            onMouseOver={(e) => {
+              e.currentTarget.style.backgroundColor =
+                "var(--button-next-hover)";
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.backgroundColor = "var(--button-next)";
+            }}
+            disabled={!canGoNext}
+            className="px-4 py-2  rounded"
+            style={{
+              backgroundColor: "var(--button-next)",
+              color: "white",
+            }}
+          >
+            Avançar
+          </button>
+        )}
       </div>
     </div>
   );
@@ -105,6 +111,14 @@ function handleChooserChange(
     case WizardStep.GPU:
       return (
         <GPUChooser
+          setCanGoNext={setCanGoNext}
+          config={config}
+          setConfig={setConfig}
+        />
+      );
+    case WizardStep.MOTHERBOARD:
+      return (
+        <MoBoChooser
           setCanGoNext={setCanGoNext}
           config={config}
           setConfig={setConfig}
