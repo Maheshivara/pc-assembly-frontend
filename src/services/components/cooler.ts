@@ -5,36 +5,39 @@ import {
 import { componentsApi } from "../api";
 import { toast } from "react-toastify";
 
-export async function listCPUs(
+export async function listCoolers(
   page: number = 1,
   perPage: number = 10,
+  cpuMpn: string,
   name: string = ""
 ): Promise<CPUComponentResponse[] | null> {
   try {
     const params =
-      name.trim().length > 2 ? { page, perPage, name } : { page, perPage };
+      name.trim().length > 2
+        ? { page, perPage, cpuMpn, name }
+        : { page, perPage, cpuMpn };
     const response = await componentsApi.get<
       PagedResponse<CPUComponentResponse>
-    >(`cpu`, {
+    >(`cooler`, {
       params,
     });
     return response.data.items;
   } catch (error) {
-    console.error("Error fetching CPU components:", error);
-    toast.error("Falha ao buscar componentes de CPU.");
+    console.error("Error fetching Cooler components:", error);
+    toast.error("Falha ao buscar componentes de Cooler.");
     return null;
   }
 }
 
-export async function getCPUByMpn(mpn: string) {
+export async function getCoolerByMpn(mpn: string) {
   try {
     const response = await componentsApi.get<CPUComponentResponse>(
-      `/cpu/${mpn}`
+      `/cooler/${mpn}`
     );
     return response.data;
   } catch (error) {
-    console.error("Error fetching CPU component:", error);
-    toast.error("Falha ao buscar componente de CPU.");
+    console.error("Error fetching Cooler component:", error);
+    toast.error("Falha ao buscar componente de Cooler.");
     return null;
   }
 }

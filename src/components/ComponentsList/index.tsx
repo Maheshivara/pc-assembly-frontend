@@ -1,5 +1,6 @@
 "use client";
 import { useRef, useEffect } from "react";
+import { ImageWithFallback } from "../ImageWithFallback";
 
 export interface ComponentsListProps {
   components: Component[];
@@ -9,6 +10,7 @@ export interface ComponentsListProps {
 }
 interface Component {
   mpn: string;
+  ean?: string;
   name?: string;
   imageUrl?: string;
 }
@@ -52,7 +54,7 @@ export function ComponentsList({
     >
       {components.map((component) => (
         <li
-          key={component.mpn}
+          key={component.ean || component.mpn}
           className="list-none gap-1 mb-2 cursor-pointer"
           style={{ height: "60px" }}
           onClick={() => onSelect(component)}
@@ -61,8 +63,10 @@ export function ComponentsList({
             className="flex items-center h-full border rounded-lg p-2 cursor-pointer"
             style={{ backgroundColor: itemColor }}
           >
-            <img
+            <ImageWithFallback
+              key={component.ean || component.mpn}
               src={component.imageUrl || "/placeholder.svg"}
+              fallbackSrc="/placeholder.svg"
               alt={component.name || "Component Image"}
               className="w-10 h-10 object-cover mr-3 rounded"
               width={40}

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { WizardProgressBar, WizardStep } from "../WizardProgressBar";
 import { CPUChooser } from "../CPUChooser";
 import { Configuration } from "@/types/domain/configuration";
-import { set } from "zod";
+import { CoolerChooser } from "../CoolerChooser";
 
 export function AssemblyWizard() {
   const [currentStep, setCurrentStep] = useState<WizardStep>(WizardStep.CPU);
@@ -28,7 +28,7 @@ export function AssemblyWizard() {
   };
   const [chooser, setChooser] = useState(
     <CPUChooser
-      canGoNext={setCanGoNext}
+      setCanGoNext={setCanGoNext}
       setConfig={setConfig}
       config={config}
     />
@@ -63,7 +63,7 @@ export function AssemblyWizard() {
           onMouseOut={(e) => {
             e.currentTarget.style.backgroundColor = "var(--button-next)";
           }}
-          disabled={currentStep === WizardStep.END || !canGoNext}
+          disabled={currentStep === WizardStep.END || !setCanGoNext}
           className="px-4 py-2  rounded"
           style={{
             backgroundColor: "var(--button-next)",
@@ -87,12 +87,19 @@ function handleChooserChange(
     case WizardStep.CPU:
       return (
         <CPUChooser
-          canGoNext={setCanGoNext}
+          setCanGoNext={setCanGoNext}
           config={config}
           setConfig={setConfig}
         />
       );
-
+    case WizardStep.CPU_FAN:
+      return (
+        <CoolerChooser
+          setCanGoNext={setCanGoNext}
+          config={config}
+          setConfig={setConfig}
+        />
+      );
     default:
       return <div>Step not implemented</div>;
   }

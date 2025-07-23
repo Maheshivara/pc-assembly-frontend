@@ -1,10 +1,10 @@
-import { useCPUs } from "@/hooks/components";
 import { ComponentsList } from "../ComponentsList";
 import { useEffect, useState } from "react";
-import { CPUComponentResponse } from "@/types/responses/components";
 import { SearchBar } from "../SearchBar";
-import { CPUInfoPanel } from "../CPUInfoPanel";
 import { Configuration } from "@/types/domain/configuration";
+import { useCoolers } from "@/hooks/components";
+import { CoolerComponentResponse } from "@/types/responses/components";
+import { CoolerInfoPanel } from "../CoolerInfoPanel";
 
 export interface CPUChooserProps {
   setCanGoNext: (value: boolean) => void;
@@ -12,24 +12,36 @@ export interface CPUChooserProps {
   setConfig: (config: Configuration) => void;
 }
 
-export function CPUChooser({
+export function CoolerChooser({
   setCanGoNext,
   setConfig,
   config,
 }: CPUChooserProps) {
+  useEffect(() => {
+    if (
+      config?.cooler &&
+      config?.cpu?.socket &&
+      config.cooler.sockets?.includes(config.cpu.socket)
+    ) {
+      setCanGoNext(true);
+    } else {
+      setSelectedCooler(null);
+    }
+  }, [config?.cooler, config?.cpu?.socket, setCanGoNext]);
+
   const [page, setPage] = useState(1);
   const [name, setName] = useState("");
   const perPage = 10;
-  const { data: pageComponents } = useCPUs.GetManyCPUs(page, perPage, name);
-  const [components, setComponents] = useState<CPUComponentResponse[]>([]);
-  const [selectedCpu, setSelectedCpu] = useState<CPUComponentResponse | null>(
-    config?.cpu || null
+  const { data: pageComponents } = useCoolers.GetManyCoolers(
+    page,
+    perPage,
+    config?.cpu?.mpn || "",
+    name
   );
-  useEffect(() => {
-    if (config?.cpu) {
-      setCanGoNext(true);
-    }
-  }, [config?.cpu, setCanGoNext]);
+  const [components, setComponents] = useState<CoolerComponentResponse[]>([]);
+  const [selectedCooler, setSelectedCooler] =
+    useState<CoolerComponentResponse | null>(config?.cooler || null);
+
   const onSearch = (query: string) => {
     if (query.trim().length < 3) {
       query = "";
@@ -38,14 +50,16 @@ export function CPUChooser({
     setPage(1);
     setComponents([]);
   };
-  const onSelect = (component: CPUComponentResponse) => {
+
+  const onSelect = (component: CoolerComponentResponse) => {
     setConfig({
       ...config,
-      cpu: component,
+      cooler: component,
     });
-    setSelectedCpu(component);
+    setSelectedCooler(component);
     setCanGoNext(true);
   };
+
   useEffect(() => {
     if (pageComponents) {
       setComponents((prev) =>
@@ -58,6 +72,9 @@ export function CPUChooser({
     setPage((prevPage) => prevPage + 1);
   };
 
+  if (!config?.cpu) {
+    return <div className="text-red-500">Selecione uma CPU primeiro.</div>;
+  }
   return (
     <div
       className="flex flex-row gap-4"
@@ -80,7 +97,7 @@ export function CPUChooser({
           alignItems: "center",
         }}
       >
-        {selectedCpu && <CPUInfoPanel cpu={selectedCpu} />}
+        {selectedCooler && <CoolerInfoPanel cooler={selectedCooler} />}
       </div>
     </div>
   );

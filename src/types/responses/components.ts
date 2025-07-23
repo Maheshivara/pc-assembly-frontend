@@ -20,3 +20,14 @@ export type CPUComponentResponse = {
   imageUrl?: string;
   productUrl?: string;
 };
+
+export type CoolerComponentResponse = {
+  mpn: string;
+  name?: string;
+  ean?: string;
+  brand?: string;
+  sockets?: string;
+  tdp?: number;
+  imageUrl?: string;
+  productUrl?: string;
+};

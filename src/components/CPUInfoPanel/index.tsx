@@ -1,5 +1,6 @@
 import { CPUComponentResponse } from "@/types/responses/components";
 import React from "react";
+import { ImageWithFallback } from "../ImageWithFallback";
 
 type CPUInfoPanelProps = {
   cpu: CPUComponentResponse;
@@ -26,18 +27,16 @@ export function CPUInfoPanel({ cpu }: CPUInfoPanelProps) {
         <h2 style={{ fontWeight: "bold", textAlign: "center" }}>
           {cpu.name || cpu.mpn}
         </h2>
-        {cpu.imageUrl && (
-          <img
-            src={cpu.imageUrl}
-            alt={cpu.name || cpu.mpn}
-            style={{
-              width: "100%",
-              maxWidth: 200,
-              marginBottom: 16,
-              display: "block",
-            }}
-          />
-        )}
+
+        <ImageWithFallback
+          key={cpu.ean || cpu.mpn}
+          src={cpu.imageUrl || "/placeholder.svg"}
+          fallbackSrc="/placeholder.svg"
+          alt={cpu.name || cpu.mpn}
+          width={200}
+          height={200}
+          className="w-full max-w-[200px] mb-4 block"
+        />
       </div>
       <ul style={{ listStyle: "none", padding: 0 }}>
         <li>

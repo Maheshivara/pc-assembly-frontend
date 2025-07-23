@@ -1,5 +1,6 @@
 export type Configuration = {
   cpu?: CPUConfiguration;
+  cooler?: CoolerConfiguration;
 };
 
 export type CPUConfiguration = {
@@ -14,6 +15,17 @@ export type CPUConfiguration = {
   tdp?: number;
   socket?: string;
   graphics?: string;
+  imageUrl?: string;
+  productUrl?: string;
+};
+
+export type CoolerConfiguration = {
+  mpn: string;
+  name?: string;
+  ean?: string;
+  brand?: string;
+  sockets?: string;
+  tdp?: number;
   imageUrl?: string;
   productUrl?: string;
 };
