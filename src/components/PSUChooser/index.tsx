@@ -5,7 +5,7 @@ import { PSUComponentResponse } from "@/types/responses/components";
 import { SearchBar } from "../SearchBar";
 import { Configuration } from "@/types/domain/configuration";
 import { PSUInfoPanel } from "../PSUInfoPanel";
-import { set } from "zod";
+import { toast } from "react-toastify";
 
 export interface PSUChooserProps {
   setCanGoNext: (value: boolean) => void;
@@ -54,6 +54,16 @@ export function PSUChooser({
   };
 
   const onSelect = (component: PSUComponentResponse) => {
+    if (!component.power) {
+      toast.warning("Fonte de alimentação com potência incerta.");
+    } else if (component.power * 0.75 < minPower) {
+      toast.warning(
+        `Fonte de alimentação com potência abaixo do recomendado (${
+          minPower / 0.75
+        }W).`
+      );
+    }
+
     setConfig({
       ...config,
       psu: component,
