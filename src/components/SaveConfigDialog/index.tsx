@@ -18,24 +18,29 @@ export function SaveConfigDialog({
 }: SaveConfigDialogProps) {
   const [name, setName] = useState("");
   const { data: session } = useSession();
-  if (!isOpen) return null;
   if (!session || session.user.accessToken === undefined) {
     toast.error("Você precisa estar logado para salvar uma configuração.");
     return null;
   }
-  const handleSave = async () => {
+  const mutation = useConfiguration.SaveConfig(
+    session.user.accessToken as string,
+    session.user.email as string
+  );
+  const handleSave = () => {
     const body = configToBody(config, name);
     if (!body) {
       toast.error("Configuração incompleta. Verifique os componentes.");
       return;
     }
-    const response = await useConfiguration.SaveConfig(
-      body,
-      session.user.accessToken as string
-    );
-    if (response) {
-      onClose();
-    }
+    mutation.mutate(body, {
+      onSuccess: () => {
+        onClose();
+        setName("");
+      },
+      onError: () => {
+        toast.error("Erro ao salvar configuração.");
+      },
+    });
   };
 
   if (!config) {

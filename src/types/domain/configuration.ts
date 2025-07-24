@@ -9,6 +9,8 @@ import {
 } from "../responses/components";
 
 export type Configuration = {
+  id?: string;
+  name?: string;
   cpu?: CPUComponentResponse;
   cooler?: CoolerComponentResponse;
   gpu?: GPUComponentResponse;

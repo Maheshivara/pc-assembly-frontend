@@ -30,7 +30,7 @@ export async function listPSUs(
         : { page, perPage, power, getUncertain, type: myType };
     const response = await componentsApi.get<
       PagedResponse<PSUComponentResponse>
-    >(`psu`, {
+    >(`/psu`, {
       params,
     });
     return response.data.items;
@@ -43,8 +43,9 @@ export async function listPSUs(
 
 export async function getPSUByMpn(mpn: string) {
   try {
+    const encodedMpn = encodeURIComponent(mpn);
     const response = await componentsApi.get<PSUComponentResponse>(
-      `psu/${mpn}`
+      `/psu/${encodedMpn}`
     );
     return response.data;
   } catch (error) {

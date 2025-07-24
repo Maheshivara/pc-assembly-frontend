@@ -18,7 +18,7 @@ export async function listRAMs(
         : { page, perPage, type };
     const response = await componentsApi.get<
       PagedResponse<RAMComponentResponse>
-    >(`memory`, {
+    >(`/memory`, {
       params,
     });
     return response.data.items;
@@ -31,8 +31,9 @@ export async function listRAMs(
 
 export async function getRAMByMpn(mpn: string) {
   try {
+    const encodedMpn = encodeURIComponent(mpn);
     const response = await componentsApi.get<RAMComponentResponse>(
-      `memory/${mpn}`
+      `/memory/${encodedMpn}`
     );
     return response.data;
   } catch (error) {

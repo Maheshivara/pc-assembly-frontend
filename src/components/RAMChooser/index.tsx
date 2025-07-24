@@ -63,6 +63,14 @@ export function RAMChooser({
       toast.error("Número máximo de slots de RAM atingido.");
       return;
     }
+    if (
+      config?.motherboard?.memoryCapacity &&
+      sumCapacity(selectedRAMs) + (selectedRAMs[0].ram.capacity || 0) >
+        config?.motherboard?.memoryCapacity
+    ) {
+      toast.error("Capacidade máxima de memória atingida.");
+      return;
+    }
     const existing = selectedRAMs.find((item) => item.ram.mpn === mpn);
     if (existing) {
       const updatedRAMs = selectedRAMs.map((item) =>

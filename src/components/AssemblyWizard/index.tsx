@@ -147,11 +147,13 @@ export function AssemblyWizard({ initialConfig }: AssemblyWizardProps) {
           </button>
         )}
       </div>
-      <SaveConfigDialog
-        isOpen={isModalOpen}
-        onClose={handleModalClose}
-        config={config}
-      />
+      {isModalOpen && (
+        <SaveConfigDialog
+          isOpen={isModalOpen}
+          onClose={handleModalClose}
+          config={config}
+        />
+      )}
     </div>
   );
 }

@@ -15,7 +15,7 @@ export async function listStorages(
       name.trim().length > 2 ? { page, perPage, name } : { page, perPage };
     const response = await componentsApi.get<
       PagedResponse<StorageComponentResponse>
-    >(`storage`, {
+    >(`/storage`, {
       params,
     });
     return response.data.items;
@@ -28,13 +28,14 @@ export async function listStorages(
 
 export async function getStorageByMpn(mpn: string) {
   try {
+    const encodedMpn = encodeURIComponent(mpn);
     const response = await componentsApi.get<StorageComponentResponse>(
-      `storage/${mpn}`
+      `/storage/${encodedMpn}`
     );
     return response.data;
   } catch (error) {
-    console.error("Error fetching CPU component:", error);
-    toast.error("Falha ao buscar componente de CPU.");
+    console.error("Error fetching Storage component:", error);
+    toast.error("Falha ao buscar componente de Storage.");
     return null;
   }
 }

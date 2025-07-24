@@ -14,7 +14,7 @@ export async function register(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       any,
       AxiosResponse<TokensResponse, AuthErrorResponse>
-    >("auth/register", { username, email, password });
+    >("/auth/register", { username, email, password });
 
     toast.success("Usuário registrado com sucesso.");
     return true;

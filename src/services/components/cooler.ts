@@ -18,7 +18,7 @@ export async function listCoolers(
         : { page, perPage, cpuMpn };
     const response = await componentsApi.get<
       PagedResponse<CPUComponentResponse>
-    >(`cooler`, {
+    >(`/cooler`, {
       params,
     });
     return response.data.items;
@@ -31,8 +31,9 @@ export async function listCoolers(
 
 export async function getCoolerByMpn(mpn: string) {
   try {
+    const encodedMpn = encodeURIComponent(mpn);
     const response = await componentsApi.get<CPUComponentResponse>(
-      `cooler/${mpn}`
+      `/cooler/${encodedMpn}`
     );
     return response.data;
   } catch (error) {
