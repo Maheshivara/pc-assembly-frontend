@@ -13,11 +13,21 @@ export async function listPSUs(
   name: string = "",
   getUncertain: boolean = false
 ): Promise<PSUComponentResponse[] | null> {
+  let myType = "ATX";
+  if (type.includes("SFX-L")) {
+    myType = "SFX-L";
+  } else if (type.includes("TFX")) {
+    myType = "TFX";
+  } else if (type.includes("SFX")) {
+    myType = "SFX";
+  } else if (type.includes("ITX")) {
+    myType = "ITX";
+  }
   try {
     const params =
       name.trim().length > 2
-        ? { page, perPage, name, power, getUncertain, type }
-        : { page, perPage, power, getUncertain, type };
+        ? { page, perPage, name, power, getUncertain, type: myType }
+        : { page, perPage, power, getUncertain, type: myType };
     const response = await componentsApi.get<
       PagedResponse<PSUComponentResponse>
     >(`psu`, {
