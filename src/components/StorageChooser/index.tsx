@@ -164,7 +164,6 @@ export function StorageChooser({
       (component.protocol === "M.2" || component.formFactor === "M.2") &&
       sumQuantity(selectedStorages, "M.2") >= m2Slots
     ) {
-      console.log("Selected motherboard:", config?.motherboard);
       toast.error("Número máximo de slots M.2 atingido.");
       return;
     }

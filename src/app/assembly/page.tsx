@@ -1,6 +1,6 @@
 import { AssemblyWizard } from "@/components/AssemblyWizard";
 
-export default function AssemblyPage() {
+export default async function AssemblyPage() {
   return (
     <div>
       <div>

@@ -1,5 +1,5 @@
 "use client";
-import { useAuth } from "@/hooks/auth";
+import { signIn } from "next-auth/react";
 import React, { useState } from "react";
 import { z } from "zod";
 
@@ -30,7 +30,15 @@ export function LoginForm() {
       return;
     }
     setErrors({});
-    await useAuth.Login(email, password);
+    const res = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+      callbackUrl: "/",
+    });
+    res?.error
+      ? setErrors({ email: "Email ou Senha inválidos" })
+      : setErrors({});
   };
 
   return (

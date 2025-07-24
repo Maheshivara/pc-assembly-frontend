@@ -1,5 +1,5 @@
 "use client";
-import { useAuth } from "@/hooks/auth";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,10 +10,11 @@ export interface TopBarProps {
 }
 
 export function TopBar({
-  username,
   showLoginButton = true,
   showSignupButton = true,
 }: TopBarProps) {
+  const { data: session } = useSession();
+  const username = session?.user?.username;
   return (
     <div className="w-full h-20 bg-[var(--top-bar)] flex items-center px-6 box-border font-bold text-[1.2rem]">
       <Link href="/" className="flex items-center no-underline">
@@ -36,10 +37,7 @@ export function TopBar({
           <span>Bem-vindo, {username}!</span>
           <button
             className="bg-[var(--button-logout)] text-white border-none rounded-md px-5 py-2 font-bold cursor-pointer transition-colors ml-3"
-            onClick={() => {
-              useAuth.Logout();
-              window.location.href = "/";
-            }}
+            onClick={() => signOut({ callbackUrl: "/" })}
             onMouseOver={(e) =>
               (e.currentTarget.style.backgroundColor =
                 "var(--button-logout-hover)")

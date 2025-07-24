@@ -3,9 +3,9 @@ import { ToastContainer } from "react-toastify";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { TopBar } from "@/components/TopBar";
-import { cookies } from "next/headers";
-import { useUser } from "@/hooks/user";
 import { QueryProvider } from "@/components/QueryProvider";
+import { getServerSession } from "next-auth";
+import { SessionProvider } from "@/components/SessionProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,17 +27,16 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieStore = await cookies();
-  const accessToken = cookieStore.get("accessToken")?.value;
-  const user = useUser.Info(accessToken);
   return (
     <html lang="pt-br">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <TopBar username={user?.username} />
-        <QueryProvider>{children}</QueryProvider>
-        <ToastContainer />
+        <SessionProvider>
+          <TopBar />
+          <QueryProvider>{children}</QueryProvider>
+          <ToastContainer />
+        </SessionProvider>
       </body>
     </html>
   );
