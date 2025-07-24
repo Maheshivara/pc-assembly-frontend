@@ -113,3 +113,16 @@ export type RAMComponentResponse = {
   imageUrl?: string;
   productUrl?: string;
 };
+
+export type StorageComponentResponse = {
+  mpn: string;
+  name?: string;
+  ean?: string;
+  type?: string;
+  formFactor?: string;
+  brand?: string;
+  protocol?: string;
+  capacity?: number;
+  imageUrl?: string;
+  productUrl?: string;
+};

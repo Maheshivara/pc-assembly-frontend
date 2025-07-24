@@ -8,6 +8,7 @@ import { GPUChooser } from "../GPUChooser";
 import { MoBoChooser } from "../MoBoChooser";
 import { PSUChooser } from "../PSUChooser";
 import { RAMChooser } from "../RAMChooser";
+import { StorageChooser } from "../StorageChooser";
 
 export function AssemblyWizard() {
   const [currentStep, setCurrentStep] = useState<WizardStep>(WizardStep.CPU);
@@ -136,6 +137,14 @@ function handleChooserChange(
     case WizardStep.RAM:
       return (
         <RAMChooser
+          setCanGoNext={setCanGoNext}
+          config={config}
+          setConfig={setConfig}
+        />
+      );
+    case WizardStep.STORAGE:
+      return (
+        <StorageChooser
           setCanGoNext={setCanGoNext}
           config={config}
           setConfig={setConfig}
