@@ -1,5 +1,7 @@
 "use client";
 import { useAuth } from "@/hooks/auth";
+import { signIn } from "next-auth/react";
+import { redirect } from "next/navigation";
 import React, { useState } from "react";
 import { z } from "zod";
 
@@ -31,7 +33,7 @@ export function SignupForm() {
     username?: string;
   }>({});
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const result = loginSchema.safeParse({
       email,
@@ -57,8 +59,23 @@ export function SignupForm() {
       setErrors(fieldErrors);
       return;
     }
-    useAuth.Register(username, email, password);
+    const res = await useAuth.Register(username, email, password);
+    if (res === false) {
+      setErrors({ email: "Email já cadastrado" });
+      return;
+    }
+    const login = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+      callbackUrl: "/",
+    });
+    if (login?.error) {
+      setErrors({ email: "Falha ao fazer login" });
+      return;
+    }
     setErrors({});
+    redirect("/");
   };
 
   return (

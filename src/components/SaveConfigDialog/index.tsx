@@ -18,6 +18,7 @@ export function SaveConfigDialog({
 }: SaveConfigDialogProps) {
   const [name, setName] = useState("");
   const { data: session } = useSession();
+  if (!isOpen) return null;
   if (!session || session.user.accessToken === undefined) {
     toast.error("Você precisa estar logado para salvar uma configuração.");
     return null;
@@ -36,7 +37,7 @@ export function SaveConfigDialog({
       onClose();
     }
   };
-  if (!isOpen) return null;
+
   if (!config) {
     toast.error("Nenhuma configuração para salvar.");
     return null;

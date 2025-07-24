@@ -1,5 +1,6 @@
 "use client";
 import { signIn } from "next-auth/react";
+import { redirect } from "next/navigation";
 import React, { useState } from "react";
 import { z } from "zod";
 
@@ -36,9 +37,12 @@ export function LoginForm() {
       password,
       callbackUrl: "/",
     });
-    res?.error
-      ? setErrors({ email: "Email ou Senha inválidos" })
-      : setErrors({});
+    if (res?.error) {
+      setErrors({ email: "Email ou senha incorretos" });
+      return;
+    }
+    setErrors({});
+    redirect("/");
   };
 
   return (

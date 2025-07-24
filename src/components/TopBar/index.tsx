@@ -1,4 +1,5 @@
 "use client";
+import { ArrowLeftEndOnRectangleIcon } from "@heroicons/react/16/solid";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -46,7 +47,8 @@ export function TopBar({
               (e.currentTarget.style.backgroundColor = "var(--button-logout)")
             }
           >
-            Sign Out
+            <ArrowLeftEndOnRectangleIcon className="w-5 h-5 inline-block mr-2" />
+            Sair
           </button>
         </div>
       ) : (
