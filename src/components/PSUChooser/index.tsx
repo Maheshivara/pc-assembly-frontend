@@ -46,7 +46,7 @@ export function PSUChooser({
 
   const onSearch = (query: string) => {
     if (query.trim().length < 3) {
-      query = "";
+      return;
     }
     setName(query);
     setPage(1);
@@ -92,7 +92,7 @@ export function PSUChooser({
       <div className="flex-1 flex flex-col gap-2">
         <SearchBar onSearch={onSearch} />
         <ComponentsList
-          itemColor="var(--gpu)"
+          itemColor="var(--psu)"
           components={components}
           onSelect={onSelect}
           onEnd={onEnd}

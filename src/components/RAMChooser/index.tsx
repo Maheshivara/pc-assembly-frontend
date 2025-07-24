@@ -1,10 +1,7 @@
 import { useRAMs } from "@/hooks/components";
 import { ComponentsList } from "../ComponentsList";
 import { useEffect, useState } from "react";
-import {
-  PSUComponentResponse,
-  RAMComponentResponse,
-} from "@/types/responses/components";
+import { RAMComponentResponse } from "@/types/responses/components";
 import { SearchBar } from "../SearchBar";
 import { Configuration, SelectedRAM } from "@/types/domain/configuration";
 import { RAMInfoPanel } from "../RAMInfoPanel";
@@ -48,7 +45,7 @@ export function RAMChooser({
 
   const onSearch = (query: string) => {
     if (query.trim().length < 3) {
-      query = "";
+      return;
     }
     setName(query);
     setPage(1);
@@ -68,11 +65,14 @@ export function RAMChooser({
     }
     const existing = selectedRAMs.find((item) => item.ram.mpn === mpn);
     if (existing) {
-      setSelectedRAMs(
-        selectedRAMs.map((item) =>
-          item.ram.mpn === mpn ? { ...item, quantity: item.quantity + 1 } : item
-        )
+      const updatedRAMs = selectedRAMs.map((item) =>
+        item.ram.mpn === mpn ? { ...item, quantity: item.quantity + 1 } : item
       );
+      setSelectedRAMs(updatedRAMs);
+      setConfig({
+        ...config,
+        ram: updatedRAMs,
+      });
     }
   };
   const onRemoveOne = (mpn: string) => {
@@ -81,11 +81,14 @@ export function RAMChooser({
     }
     const existing = selectedRAMs.find((item) => item.ram.mpn === mpn);
     if (existing && existing.quantity > 1) {
-      setSelectedRAMs(
-        selectedRAMs.map((item) =>
-          item.ram.mpn === mpn ? { ...item, quantity: item.quantity - 1 } : item
-        )
+      const updatedRAMs = selectedRAMs.map((item) =>
+        item.ram.mpn === mpn ? { ...item, quantity: item.quantity - 1 } : item
       );
+      setSelectedRAMs(updatedRAMs);
+      setConfig({
+        ...config,
+        ram: updatedRAMs,
+      });
     } else {
       setSelectedRAMs(selectedRAMs.filter((item) => item.ram.mpn !== mpn));
       setConfig({
@@ -167,7 +170,7 @@ export function RAMChooser({
       <div className="flex-1 flex flex-col gap-2">
         <SearchBar onSearch={onSearch} />
         <ComponentsList
-          itemColor="var(--gpu)"
+          itemColor="var(--ram)"
           components={components}
           onSelect={onSelect}
           onEnd={onEnd}

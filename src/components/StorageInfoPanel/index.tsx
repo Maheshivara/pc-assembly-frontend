@@ -1,58 +1,61 @@
 import { MinusIcon, PlusIcon, TrashIcon } from "@heroicons/react/16/solid";
 import { ImageWithFallback } from "../ImageWithFallback";
-import { SelectedRAM } from "@/types/domain/configuration";
+import { SelectedStorage } from "@/types/domain/configuration";
 
-type RAMInfoPanelProps = {
-  rams: SelectedRAM[];
+type StorageInfoPanelProps = {
+  storages: SelectedStorage[];
   onAddOne: (mpn: string) => void;
   onRemoveOne: (mpn: string) => void;
   onDelete: (mpn: string) => void;
 };
 
-export function RAMInfoPanel({
-  rams,
+export function StorageInfoPanel({
+  storages,
   onAddOne,
   onRemoveOne,
   onDelete,
-}: RAMInfoPanelProps) {
+}: StorageInfoPanelProps) {
   return (
     <div className="w-full p-4">
-      {rams.map((item) => (
+      {storages.map((item) => (
         <div
-          key={
-            (item.ram.ean || item.ram.mpn) +
-            item.ram.clockSpeed +
-            item.ram.capacity
-          }
+          key={(item.storage.ean || item.storage.mpn) + item.storage.capacity}
           className="flex items-center justify-between mb-2"
           style={{ backgroundColor: "var(--surface)" }}
         >
           <div className="flex items-center">
             <ImageWithFallback
-              key={item.ram.ean || item.ram.mpn}
-              src={item.ram.imageUrl || "/placeholder.svg"}
+              key={item.storage.ean || item.storage.mpn}
+              src={item.storage.imageUrl || "/placeholder.svg"}
               fallbackSrc="/placeholder.svg"
               width={48}
               height={48}
-              alt={item.ram.name || item.ram.mpn}
+              alt={item.storage.name || item.storage.mpn}
               className="w-12 h-12 mr-2"
             />
             <div className="flex flex-col">
-              <span className="text-sm">{item.ram.name || item.ram.mpn}</span>
+              <span className="text-sm">
+                {item.storage.name || item.storage.mpn}
+              </span>
               <div className="flex flex-wrap">
-                {item.ram.capacity && (
+                {item.storage.capacity && (
                   <span className="text-xs text-gray-500 mr-2">
-                    {item.ram.capacity} GB
+                    {item.storage.capacity} GB
                   </span>
                 )}
-                {item.ram.clockSpeed && (
+                {item.storage.brand && (
                   <span className="text-xs text-gray-500 mr-2">
-                    {item.ram.clockSpeed} MHz
+                    {item.storage.brand}
                   </span>
                 )}
-                {item.ram.type && (
+                {item.storage.protocol && (
                   <span className="text-xs text-gray-500 mr-2">
-                    {item.ram.type}
+                    {item.storage.protocol}
+                  </span>
+                )}
+                {item.storage.formFactor && (
+                  <span className="text-xs text-gray-500">
+                    {item.storage.formFactor}
                   </span>
                 )}
               </div>
@@ -60,7 +63,7 @@ export function RAMInfoPanel({
           </div>
           <div className="flex items-center">
             <button
-              onClick={() => onRemoveOne(item.ram.mpn)}
+              onClick={() => onRemoveOne(item.storage.mpn)}
               className="btn btn-secondary mx-2"
               aria-label="Remove one"
               type="button"
@@ -69,7 +72,7 @@ export function RAMInfoPanel({
             </button>
             <span>{item.quantity}</span>
             <button
-              onClick={() => onAddOne(item.ram.mpn)}
+              onClick={() => onAddOne(item.storage.mpn)}
               className="btn btn-primary mx-2"
               aria-label="Add one"
               type="button"
@@ -77,7 +80,7 @@ export function RAMInfoPanel({
               <PlusIcon className="h-5 w-5" />
             </button>
             <button
-              onClick={() => onDelete(item.ram.mpn)}
+              onClick={() => onDelete(item.storage.mpn)}
               className="btn btn-danger"
               aria-label="Delete"
               type="button"

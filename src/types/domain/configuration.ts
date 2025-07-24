@@ -5,6 +5,7 @@ import {
   MotherboardComponentResponse,
   PSUComponentResponse,
   RAMComponentResponse,
+  StorageComponentResponse,
 } from "../responses/components";
 
 export type Configuration = {
@@ -14,9 +15,15 @@ export type Configuration = {
   motherboard?: MotherboardComponentResponse;
   psu?: PSUComponentResponse;
   ram?: SelectedRAM[];
+  storage?: SelectedStorage[];
 };
 
 export type SelectedRAM = {
   ram: RAMComponentResponse;
+  quantity: number;
+};
+
+export type SelectedStorage = {
+  storage: StorageComponentResponse;
   quantity: number;
 };

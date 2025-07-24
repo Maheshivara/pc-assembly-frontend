@@ -32,7 +32,7 @@ export function CPUChooser({
   }, [config?.cpu, setCanGoNext]);
   const onSearch = (query: string) => {
     if (query.trim().length < 3) {
-      query = "";
+      return;
     }
     setName(query);
     setPage(1);

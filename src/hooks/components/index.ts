@@ -7,6 +7,7 @@ import {
 } from "@/services/components/motherboard";
 import { getPSUByMpn, listPSUs } from "@/services/components/psu";
 import { getRAMByMpn, listRAMs } from "@/services/components/ram";
+import { getStorageByMpn, listStorages } from "@/services/components/storage";
 import { useQuery } from "@tanstack/react-query";
 
 const queryKeys = {
@@ -153,4 +154,27 @@ const GetOneRAM = (mpn: string) => {
 export const useRAMs = {
   GetManyRAMs,
   GetOneRAM,
+};
+
+const GetManyStorages = (
+  page: number = 1,
+  perPage: number = 10,
+  name: string = ""
+) => {
+  return useQuery({
+    queryKey: [queryKeys.storages, page, perPage, name],
+    queryFn: () => listStorages(page, perPage, name),
+  });
+};
+
+const GetOneStorage = (mpn: string) => {
+  return useQuery({
+    queryKey: [queryKeys.storages, "mpn", mpn],
+    queryFn: () => getStorageByMpn(mpn),
+  });
+};
+
+export const useStorages = {
+  GetManyStorages,
+  GetOneStorage,
 };
