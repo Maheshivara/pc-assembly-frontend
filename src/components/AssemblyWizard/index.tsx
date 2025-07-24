@@ -9,11 +9,26 @@ import { MoBoChooser } from "../MoBoChooser";
 import { PSUChooser } from "../PSUChooser";
 import { RAMChooser } from "../RAMChooser";
 import { StorageChooser } from "../StorageChooser";
+import { ConfigAbstract } from "../ConfigAbstract";
+import { useSession } from "next-auth/react";
+import { SaveConfigDialog } from "../SaveConfigDialog";
 
-export function AssemblyWizard() {
+export interface AssemblyWizardProps {
+  initialConfig?: Configuration;
+}
+
+export function AssemblyWizard({ initialConfig }: AssemblyWizardProps) {
   const [currentStep, setCurrentStep] = useState<WizardStep>(WizardStep.CPU);
   const [canGoNext, setCanGoNext] = useState<boolean>(false);
-  const [config, setConfig] = useState<Configuration | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+  const { data: session } = useSession();
+  const accessToken = session?.user?.accessToken;
+  const [config, setConfig] = useState<Configuration | null>(
+    initialConfig || null
+  );
   const nextStep = (step: WizardStep) => {
     if (step < WizardStep.END && canGoNext) {
       setCurrentStep(step + 1);
@@ -82,7 +97,61 @@ export function AssemblyWizard() {
             Avançar
           </button>
         )}
+        {currentStep === WizardStep.END && accessToken && (
+          <button
+            onClick={() => setIsModalOpen(true)}
+            onMouseOver={(e) => {
+              e.currentTarget.style.backgroundColor =
+                "var(--button-next-hover)";
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.backgroundColor = "var(--button-next)";
+            }}
+            className="px-4 py-2 rounded"
+            style={{
+              backgroundColor: "var(--button-next)",
+              color: "white",
+            }}
+          >
+            Salvar
+          </button>
+        )}
+        {currentStep === WizardStep.END && (
+          <button
+            className="px-4 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white"
+            style={{
+              backgroundColor: "var(--button-login)",
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.backgroundColor =
+                "var(--button-login-hover)";
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.backgroundColor = "var(--button-login)";
+            }}
+            onClick={() => {
+              setConfig(null);
+              setCurrentStep(WizardStep.CPU);
+              setChooser(
+                handleChooserChange(
+                  WizardStep.CPU,
+                  setCanGoNext,
+                  null,
+                  setConfig
+                )
+              );
+              window.location.href = "/";
+            }}
+          >
+            Voltar ao início
+          </button>
+        )}
       </div>
+      <SaveConfigDialog
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
+        config={config}
+      />
     </div>
   );
 }
@@ -150,6 +219,8 @@ function handleChooserChange(
           setConfig={setConfig}
         />
       );
+    case WizardStep.END:
+      return <ConfigAbstract config={config} />;
     default:
       return <div>Step not implemented</div>;
   }

@@ -33,7 +33,12 @@ export function SignupForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const result = loginSchema.safeParse({ email, password, confirmPassword });
+    const result = loginSchema.safeParse({
+      email,
+      password,
+      confirmPassword,
+      username,
+    });
     if (!result.success) {
       const fieldErrors: {
         email?: string;
@@ -52,6 +57,7 @@ export function SignupForm() {
       setErrors(fieldErrors);
       return;
     }
+    useAuth.Register(username, email, password);
     setErrors({});
   };
 
@@ -116,7 +122,7 @@ export function SignupForm() {
       <button
         type="submit"
         className="p-3 rounded border-none bg-[var(--button-signup)] text-white font-bold cursor-pointer mt-4 transition-colors hover:bg-[var(--button-signup-hover)]"
-        onClick={() => useAuth.Register(username, email, password)}
+        onClick={(e) => handleSubmit(e)}
         onMouseOver={(e) => {
           e.currentTarget.style.backgroundColor = "var(--button-signup-hover)";
         }}
