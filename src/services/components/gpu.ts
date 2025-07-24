@@ -15,7 +15,7 @@ export async function listGPUs(
       name.trim().length > 2 ? { page, perPage, name } : { page, perPage };
     const response = await componentsApi.get<
       PagedResponse<GPUComponentResponse>
-    >(`gpu`, {
+    >(`/gpu`, {
       params,
     });
     return response.data.items;
@@ -28,8 +28,9 @@ export async function listGPUs(
 
 export async function getGPUByMpn(mpn: string) {
   try {
+    const encodedMpn = encodeURIComponent(mpn);
     const response = await componentsApi.get<GPUComponentResponse>(
-      `gpu/${mpn}`
+      `/gpu/${encodedMpn}`
     );
     return response.data;
   } catch (error) {

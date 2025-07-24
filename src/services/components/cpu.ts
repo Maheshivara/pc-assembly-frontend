@@ -15,7 +15,7 @@ export async function listCPUs(
       name.trim().length > 2 ? { page, perPage, name } : { page, perPage };
     const response = await componentsApi.get<
       PagedResponse<CPUComponentResponse>
-    >(`cpu`, {
+    >(`/cpu`, {
       params,
     });
     return response.data.items;
@@ -28,8 +28,9 @@ export async function listCPUs(
 
 export async function getCPUByMpn(mpn: string) {
   try {
+    const encodedMpn = encodeURIComponent(mpn);
     const response = await componentsApi.get<CPUComponentResponse>(
-      `cpu/${mpn}`
+      `/cpu/${encodedMpn}`
     );
     return response.data;
   } catch (error) {

@@ -1,4 +1,5 @@
 "use client";
+import { ArrowLeftEndOnRectangleIcon } from "@heroicons/react/16/solid";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -36,6 +37,19 @@ export function TopBar({
         <div className="ml-auto text-white flex items-center">
           <span>Bem-vindo, {username}!</span>
           <button
+            className="ml-4 bg-[var(--button-login)] text-white border-none rounded-md px-5 py-2 font-bold cursor-pointer transition-colors"
+            onClick={() => (window.location.href = "/my-configs")}
+            onMouseOver={(e) =>
+              (e.currentTarget.style.backgroundColor =
+                "var(--button-login-hover)")
+            }
+            onMouseOut={(e) =>
+              (e.currentTarget.style.backgroundColor = "var(--button-login)")
+            }
+          >
+            Suas Configurações
+          </button>
+          <button
             className="bg-[var(--button-logout)] text-white border-none rounded-md px-5 py-2 font-bold cursor-pointer transition-colors ml-3"
             onClick={() => signOut({ callbackUrl: "/" })}
             onMouseOver={(e) =>
@@ -46,7 +60,8 @@ export function TopBar({
               (e.currentTarget.style.backgroundColor = "var(--button-logout)")
             }
           >
-            Sign Out
+            <ArrowLeftEndOnRectangleIcon className="w-5 h-5 inline-block mr-2" />
+            Sair
           </button>
         </div>
       ) : (

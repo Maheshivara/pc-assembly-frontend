@@ -3,27 +3,21 @@ import { userApi } from "../api";
 import { AxiosError, AxiosResponse, isAxiosError } from "axios";
 import { AuthErrorResponse } from "@/types/responses/error";
 import { toast } from "react-toastify";
-import { signIn } from "next-auth/react";
 
 export async function register(
   username: string,
   email: string,
   password: string
-) {
+): Promise<Boolean> {
   try {
     const response = await userApi.post<
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       any,
       AxiosResponse<TokensResponse, AuthErrorResponse>
-    >("auth/register", { username, email, password });
+    >("/auth/register", { username, email, password });
 
     toast.success("Usuário registrado com sucesso.");
-    await signIn("credentials", {
-      redirect: false,
-      email,
-      password,
-      callbackUrl: "/",
-    });
+    return true;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (isAxiosError(error)) {
@@ -33,18 +27,19 @@ export async function register(
         switch (status) {
           case 400:
             toast.error("Email já cadastrado ou dados inválidos.");
-            break;
+            return false;
           case 500:
             toast.error(
               "Erro interno do servidor. Tente novamente mais tarde."
             );
-            break;
+            return false;
           default:
             toast.error("Oops! Algo deu errado.");
-            break;
+            return false;
         }
       }
     }
     toast.error("Erro ao registrar usuário.");
+    return false;
   }
 }

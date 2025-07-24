@@ -18,7 +18,7 @@ export async function listMotherboards(
         : { page, perPage, cpuMpn };
     const response = await componentsApi.get<
       PagedResponse<MotherboardComponentResponse>
-    >(`motherboard`, {
+    >(`/motherboard`, {
       params,
     });
     return response.data.items;
@@ -31,8 +31,9 @@ export async function listMotherboards(
 
 export async function getMotherboardByMpn(mpn: string) {
   try {
+    const encodedMpn = encodeURIComponent(mpn);
     const response = await componentsApi.get<MotherboardComponentResponse>(
-      `motherboard/${mpn}`
+      `/motherboard/${encodedMpn}`
     );
     return response.data;
   } catch (error) {
