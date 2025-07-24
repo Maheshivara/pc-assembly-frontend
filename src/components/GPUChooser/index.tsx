@@ -33,7 +33,7 @@ export function GPUChooser({
 
   const onSearch = (query: string) => {
     if (query.trim().length < 3) {
-      query = "";
+      return;
     }
     setName(query);
     setPage(1);

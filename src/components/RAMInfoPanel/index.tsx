@@ -1,9 +1,4 @@
-import {
-  MinusIcon,
-  PlusIcon,
-  TrashIcon,
-  XMarkIcon,
-} from "@heroicons/react/16/solid";
+import { MinusIcon, PlusIcon, TrashIcon } from "@heroicons/react/16/solid";
 import { ImageWithFallback } from "../ImageWithFallback";
 import { SelectedRAM } from "@/types/domain/configuration";
 
@@ -65,21 +60,21 @@ export function RAMInfoPanel({
           </div>
           <div className="flex items-center">
             <button
-              onClick={() => onAddOne(item.ram.mpn)}
-              className="btn btn-primary mr-2"
-              aria-label="Add one"
-              type="button"
-            >
-              <PlusIcon className="h-5 w-5" />
-            </button>
-            <span>{item.quantity}</span>
-            <button
               onClick={() => onRemoveOne(item.ram.mpn)}
               className="btn btn-secondary mx-2"
               aria-label="Remove one"
               type="button"
             >
               <MinusIcon className="h-5 w-5" />
+            </button>
+            <span>{item.quantity}</span>
+            <button
+              onClick={() => onAddOne(item.ram.mpn)}
+              className="btn btn-primary mx-2"
+              aria-label="Add one"
+              type="button"
+            >
+              <PlusIcon className="h-5 w-5" />
             </button>
             <button
               onClick={() => onDelete(item.ram.mpn)}
